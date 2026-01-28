@@ -28,10 +28,6 @@ C:\Users\styol\Desktop\Shaders\obj\Debug\net10.0\refint\Shaders.dll
 C:\Users\styol\Desktop\Shaders\obj\Debug\net10.0\Shaders.pdb
 C:\Users\styol\Desktop\Shaders\obj\Debug\net10.0\Shaders.genruntimeconfig.cache
 C:\Users\styol\Desktop\Shaders\obj\Debug\net10.0\ref\Shaders.dll
-C:\Users\PC2-Alumno 2\Documents\GitHub\ProgramacionShaders\bin\Debug\net10.0\Shaders\basic.frag
-C:\Users\PC2-Alumno 2\Documents\GitHub\ProgramacionShaders\bin\Debug\net10.0\Shaders\basic.vert
-C:\Users\PC2-Alumno 2\Documents\GitHub\ProgramacionShaders\bin\Debug\net10.0\Shaders\vertexColor.frag
-C:\Users\PC2-Alumno 2\Documents\GitHub\ProgramacionShaders\bin\Debug\net10.0\Shaders\vertexColor.vert
 C:\Users\PC2-Alumno 2\Documents\GitHub\ProgramacionShaders\bin\Debug\net10.0\Shaders.exe
 C:\Users\PC2-Alumno 2\Documents\GitHub\ProgramacionShaders\bin\Debug\net10.0\Shaders.deps.json
 C:\Users\PC2-Alumno 2\Documents\GitHub\ProgramacionShaders\bin\Debug\net10.0\Shaders.runtimeconfig.json
@@ -67,3 +63,5 @@ C:\Users\PC2-Alumno 2\Documents\GitHub\ProgramacionShaders\obj\Debug\net10.0\ref
 C:\Users\PC2-Alumno 2\Documents\GitHub\ProgramacionShaders\bin\Debug\net10.0\Shaders\textured.frag
 C:\Users\PC2-Alumno 2\Documents\GitHub\ProgramacionShaders\bin\Debug\net10.0\Shaders\textured.vert
 C:\Users\PC2-Alumno 2\Documents\GitHub\ProgramacionShaders\bin\Debug\net10.0\Textures\Lenna.png
+C:\Users\PC2-Alumno 2\Documents\GitHub\ProgramacionShaders\bin\Debug\net10.0\Shaders\textured_mvp.vert
+C:\Users\PC2-Alumno 2\Documents\GitHub\ProgramacionShaders\bin\Debug\net10.0\Textures\UltraInstict.png
