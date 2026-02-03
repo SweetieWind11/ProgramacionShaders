@@ -65,3 +65,8 @@ C:\Users\PC2-Alumno 2\Documents\GitHub\ProgramacionShaders\bin\Debug\net10.0\Sha
 C:\Users\PC2-Alumno 2\Documents\GitHub\ProgramacionShaders\bin\Debug\net10.0\Textures\Lenna.png
 C:\Users\PC2-Alumno 2\Documents\GitHub\ProgramacionShaders\bin\Debug\net10.0\Shaders\textured_mvp.vert
 C:\Users\PC2-Alumno 2\Documents\GitHub\ProgramacionShaders\bin\Debug\net10.0\Textures\UltraInstict.png
+C:\Users\PC2-Alumno 2\Documents\GitHub\ProgramacionShaders\bin\Debug\net10.0\Textures\Evanescence.png
+C:\Users\PC2-Alumno 2\Documents\GitHub\ProgramacionShaders\bin\Debug\net10.0\Shaders\basic.frag
+C:\Users\PC2-Alumno 2\Documents\GitHub\ProgramacionShaders\bin\Debug\net10.0\Shaders\basic.vert
+C:\Users\PC2-Alumno 2\Documents\GitHub\ProgramacionShaders\bin\Debug\net10.0\Shaders\vertexColor.frag
+C:\Users\PC2-Alumno 2\Documents\GitHub\ProgramacionShaders\bin\Debug\net10.0\Shaders\vertexColor.vert
