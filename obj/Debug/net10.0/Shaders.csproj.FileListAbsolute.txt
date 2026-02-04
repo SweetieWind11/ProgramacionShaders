@@ -70,3 +70,5 @@ C:\Users\PC2-Alumno 2\Documents\GitHub\ProgramacionShaders\bin\Debug\net10.0\Sha
 C:\Users\PC2-Alumno 2\Documents\GitHub\ProgramacionShaders\bin\Debug\net10.0\Shaders\basic.vert
 C:\Users\PC2-Alumno 2\Documents\GitHub\ProgramacionShaders\bin\Debug\net10.0\Shaders\vertexColor.frag
 C:\Users\PC2-Alumno 2\Documents\GitHub\ProgramacionShaders\bin\Debug\net10.0\Shaders\vertexColor.vert
+C:\Users\PC2-Alumno 2\Documents\GitHub\ProgramacionShaders\bin\Debug\net10.0\Shaders\lit_flat.frag
+C:\Users\PC2-Alumno 2\Documents\GitHub\ProgramacionShaders\bin\Debug\net10.0\Shaders\lit_flat.vert

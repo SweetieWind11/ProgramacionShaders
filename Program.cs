@@ -85,7 +85,7 @@ class Game : GameWindow
         // ============================================================
         // B) Shader compartido (uno para todos los objetos)
         // ============================================================
-        _shader = new Shader("Shaders/textured_mvp.vert", "Shaders/textured.frag");
+        _shader = new Shader("Shaders/lit_flat.vert", "Shaders/lit_flat.frag");
         _chader = new Shader("Shaders/textured_mvp.vert", "Shaders/basic.frag");
         _xader = new Shader("Shaders/textured_mvp.vert", "Shaders/vertexColor.frag");
         // ============================================================
@@ -107,12 +107,17 @@ class Game : GameWindow
         // ============================================================
         // E) Renderer: define “cámara” (View) y Projection
         // ============================================================
+
+        
         _renderer = new Renderer
         {
             View = Matrix4.Identity,
             Projection = Matrix4.CreateOrthographicOffCenter(-1f, 1f, -1f, 1f, -1f, 1f)
         };
-
+        _shader.Use();
+        _shader.SetVector3("uLightColor", new Vector3(1.0f, 0.0f, 0.0f));
+        _shader.SetVector3("uBaseColor", new Vector3(1.0f, 1.0f, 1.0f));
+        _shader.SetFloat("uAmbient", 0.5f);
         // ============================================================
         // F) Crear instancias (Renderables)
         // ============================================================
@@ -166,6 +171,9 @@ class Game : GameWindow
         // - Bind material (shader + textura)
         // - Set uMVP (por objeto)
         // - Mesh.Draw()
+        Vector3 lightDir = Vector3.Normalize(new Vector3(0f, 3f , 1f));
+        _shader.Use();
+        _shader.SetVector3("uLight,Dir", lightDir);
         foreach (var obj in _objects)
             _renderer.Draw(obj);
 
