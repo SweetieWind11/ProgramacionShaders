@@ -116,3 +116,5 @@ C:\Users\styol\Documents\GitHub\ProgramacionShaders\obj\Debug\net10.0\refint\Sha
 C:\Users\styol\Documents\GitHub\ProgramacionShaders\obj\Debug\net10.0\Shaders.pdb
 C:\Users\styol\Documents\GitHub\ProgramacionShaders\obj\Debug\net10.0\Shaders.genruntimeconfig.cache
 C:\Users\styol\Documents\GitHub\ProgramacionShaders\obj\Debug\net10.0\ref\Shaders.dll
+C:\Users\PC2-Alumno 2\Documents\GitHub\ProgramacionShaders\bin\Debug\net10.0\Shaders\cube.frag
+C:\Users\PC2-Alumno 2\Documents\GitHub\ProgramacionShaders\bin\Debug\net10.0\Shaders\cube.vert
