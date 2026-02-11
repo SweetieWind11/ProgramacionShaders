@@ -13,34 +13,52 @@ public sealed class Mesh : IDisposable
         _vbo = GL.GenBuffer();
         _ebo = GL.GenBuffer();
 
-         GL.BindVertexArray(_vao);
+        GL.BindVertexArray(_vao);
 
-        // Para el VBO, hacemos los "Bind" / enlaces de datos con la GOU y los shaders.
+        // VBO
         GL.BindBuffer(BufferTarget.ArrayBuffer, _vbo);
-        GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
+        GL.BufferData(
+            BufferTarget.ArrayBuffer,
+            vertices.Length * sizeof(float),
+            vertices,
+            BufferUsageHint.StaticDraw
+        );
 
         // EBO
-        // Contiene los índices de cómo leer los vértices. El EBO se guarda en el VAO.
         GL.BindBuffer(BufferTarget.ElementArrayBuffer, _ebo);
-        GL.BufferData(BufferTarget.ElementArrayBuffer, indices.Length * sizeof(uint), indices, BufferUsageHint.StaticDraw);
+        GL.BufferData(
+            BufferTarget.ElementArrayBuffer,
+            indices.Length * sizeof(uint),
+            indices,
+            BufferUsageHint.StaticDraw
+        );
 
-        //Config de atributos (VAO)
+        GL.BindBuffer(BufferTarget.ArrayBuffer, _vbo);
+
+        // Atributos (capturan estado del VAO)
         setupAttribs.Invoke();
 
-        //Limpieza de binds(opcional)
+        // Limpieza
         GL.BindVertexArray(0);
+        GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
     }
 
     public void Draw()
     {
         GL.BindVertexArray(_vao);
-        GL.DrawElements(PrimitiveType.Triangles, _indexCount, DrawElementsType.UnsignedInt, 0);
+        GL.DrawElements(
+            PrimitiveType.Triangles,
+            _indexCount,
+            DrawElementsType.UnsignedInt,
+            0
+        );
+        GL.BindVertexArray(0);
     }
 
     public void Dispose()
     {
         GL.DeleteBuffer(_ebo);
         GL.DeleteBuffer(_vbo);
-        GL.DeleteVertexArray(_vao); 
+        GL.DeleteVertexArray(_vao);
     }
 }
