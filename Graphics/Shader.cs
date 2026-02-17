@@ -1,4 +1,7 @@
 using OpenTK.Graphics.OpenGL4;
+using OpenTK.Mathematics;
+using System;
+using System.IO;
 
 public sealed class Shader : IDisposable
 {
@@ -6,34 +9,51 @@ public sealed class Shader : IDisposable
 
     public Shader(string vertexPath, string fragmentPath)
     {
-        string vertexSource = File.ReadAllText(vertexPath);
-        string fragmentSource = File.ReadAllText(fragmentPath);
-
-        int vertexShader = GL.CreateShader(ShaderType.VertexShader);
-        GL.ShaderSource(vertexShader, vertexSource);
-        GL.CompileShader(vertexShader);
-        GL.GetShader(vertexShader, ShaderParameter.CompileStatus, out int vOk);
-        if (vOk == 0) throw new Exception(GL.GetShaderInfoLog(vertexShader));
-
-        int fragmentShader = GL.CreateShader(ShaderType.FragmentShader);
-        GL.ShaderSource(fragmentShader, fragmentSource);
-        GL.CompileShader(fragmentShader);
-        GL.GetShader(fragmentShader, ShaderParameter.CompileStatus, out int fOk);
-        if (fOk == 0) throw new Exception(GL.GetShaderInfoLog(fragmentShader));
+        int vertex = Compile(ShaderType.VertexShader, File.ReadAllText(vertexPath));
+        int fragment = Compile(ShaderType.FragmentShader, File.ReadAllText(fragmentPath));
 
         Handle = GL.CreateProgram();
-        GL.AttachShader(Handle, vertexShader);
-        GL.AttachShader(Handle, fragmentShader);
+        GL.AttachShader(Handle, vertex);
+        GL.AttachShader(Handle, fragment);
         GL.LinkProgram(Handle);
-        GL.GetProgram(Handle, GetProgramParameterName.LinkStatus, out int linkOk);
-        if (linkOk == 0) throw new Exception(GL.GetProgramInfoLog(Handle));
 
-        GL.DetachShader(Handle, vertexShader);
-        GL.DetachShader(Handle, fragmentShader);
-        GL.DeleteShader(vertexShader);
-        GL.DeleteShader(fragmentShader);
+        GL.GetProgram(Handle, GetProgramParameterName.LinkStatus, out int status);
+        if (status == 0)
+            throw new Exception(GL.GetProgramInfoLog(Handle));
+
+        GL.DeleteShader(vertex);
+        GL.DeleteShader(fragment);
     }
 
+    private static int Compile(ShaderType type, string src)
+    {
+        int shader = GL.CreateShader(type);
+        GL.ShaderSource(shader, src);
+        GL.CompileShader(shader);
+
+        GL.GetShader(shader, ShaderParameter.CompileStatus, out int status);
+        if (status == 0)
+            throw new Exception(GL.GetShaderInfoLog(shader));
+
+        return shader;
+    }
+
+    public void Use() => GL.UseProgram(Handle);
+
+    public void SetMatrix4(string name, Matrix4 value)
+    {
+        int loc = GL.GetUniformLocation(Handle, name);
+        GL.UniformMatrix4(loc, false, ref value);
+    }
+
+    public void SetInt(string name, int value)
+    {
+        GL.Uniform1(GL.GetUniformLocation(Handle, name), value);
+    }
+
+    public void Dispose() => GL.DeleteProgram(Handle);
+}
+    /*
     public void SetInt(string name, int value)
     {
         int loc = GL.GetUniformLocation(Handle, name);
@@ -58,4 +78,5 @@ public sealed class Shader : IDisposable
     public void Use() => GL.UseProgram(Handle);
 
     public void Dispose() => GL.DeleteProgram(Handle);
-}
+   */ 
+
