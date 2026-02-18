@@ -1,7 +1,7 @@
 using OpenTK.Graphics.OpenGL4;
 
 public sealed class Material
-{
+{/*
     public Shader Shader { get; }
     public Texture Texture { get; }
 
@@ -23,5 +23,5 @@ public sealed class Material
             Shader.SetInt("uTex", 0);
         
         }
-    }
+    }*/
 }

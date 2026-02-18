@@ -1,7 +1,7 @@
 using OpenTK.Mathematics;
 
 public sealed class Renderable
-{
+{/*
     public Mesh Mesh { get; }
     public Material Material { get; }
 
@@ -18,5 +18,5 @@ public sealed class Renderable
     public Matrix4 ModelMatrix =>
         Matrix4.CreateScale(Scale) *
         Matrix4.CreateRotationZ(RotationZ) *
-        Matrix4.CreateTranslation(Position);
+        Matrix4.CreateTranslation(Position);*/
 }

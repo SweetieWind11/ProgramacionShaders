@@ -1,7 +1,7 @@
-using OpenTK.Graphics.OpenGL4;
-using OpenTK.Mathematics;
 using System;
 using System.IO;
+using OpenTK.Mathematics;
+using OpenTK.Graphics.OpenGL4;
 
 public sealed class Shader : IDisposable
 {
@@ -9,23 +9,68 @@ public sealed class Shader : IDisposable
 
     public Shader(string vertexPath, string fragmentPath)
     {
-        int vertex = Compile(ShaderType.VertexShader, File.ReadAllText(vertexPath));
-        int fragment = Compile(ShaderType.FragmentShader, File.ReadAllText(fragmentPath));
+        if (!File.Exists(vertexPath))
+            throw new FileNotFoundException($"No se encontró el vertex shader: {vertexPath}");
+
+        if (!File.Exists(fragmentPath))
+            throw new FileNotFoundException($"No se encontró el fragment shader: {fragmentPath}");
+
+        string vertexSrc = File.ReadAllText(vertexPath);
+        string fragmentSrc = File.ReadAllText(fragmentPath);
+
+        int vs = CompileShader(ShaderType.VertexShader, vertexSrc);
+        int fs = CompileShader(ShaderType.FragmentShader, fragmentSrc);
 
         Handle = GL.CreateProgram();
-        GL.AttachShader(Handle, vertex);
-        GL.AttachShader(Handle, fragment);
+        GL.AttachShader(Handle, vs);
+        GL.AttachShader(Handle, fs);
         GL.LinkProgram(Handle);
 
         GL.GetProgram(Handle, GetProgramParameterName.LinkStatus, out int status);
         if (status == 0)
-            throw new Exception(GL.GetProgramInfoLog(Handle));
+        {
+            string log = GL.GetProgramInfoLog(Handle);
+            throw new Exception($"Error linkeando shader program:\n{log}");
+        }
 
-        GL.DeleteShader(vertex);
-        GL.DeleteShader(fragment);
+        GL.DetachShader(Handle, vs);
+        GL.DetachShader(Handle, fs);
+        GL.DeleteShader(vs);
+        GL.DeleteShader(fs);
     }
 
-    private static int Compile(ShaderType type, string src)
+    public void Use() => GL.UseProgram(Handle);
+
+    public void SetMatrix4(string name, Matrix4 value, bool transpose = false)
+    {
+        int loc = GL.GetUniformLocation(Handle, name);
+        GL.UniformMatrix4(loc, transpose, ref value);
+    }
+
+    public void SetVector3(string name, OpenTK.Mathematics.Vector3 value)
+    {
+        int loc = GL.GetUniformLocation(Handle, name);
+        GL.Uniform3(loc, value);
+    }
+
+    public void SetInt(string name, int value)
+    {
+        int loc = GL.GetUniformLocation(Handle, name);
+        GL.Uniform1(loc, value);
+    }
+
+    public void SetFloat(string name, float value)
+    {
+        int loc = GL.GetUniformLocation(Handle, name);
+        GL.Uniform1(loc, value);
+    }   
+
+    public void Dispose()
+    {
+        GL.DeleteProgram(Handle);
+    }
+
+    private static int CompileShader(ShaderType type, string src)
     {
         int shader = GL.CreateShader(type);
         GL.ShaderSource(shader, src);
@@ -33,50 +78,11 @@ public sealed class Shader : IDisposable
 
         GL.GetShader(shader, ShaderParameter.CompileStatus, out int status);
         if (status == 0)
-            throw new Exception(GL.GetShaderInfoLog(shader));
+        {
+            string log = GL.GetShaderInfoLog(shader);
+            throw new Exception($"Error compilando {type}:\n{log}");
+        }
 
         return shader;
     }
-
-    public void Use() => GL.UseProgram(Handle);
-
-    public void SetMatrix4(string name, Matrix4 value)
-    {
-        int loc = GL.GetUniformLocation(Handle, name);
-        GL.UniformMatrix4(loc, false, ref value);
-    }
-
-    public void SetInt(string name, int value)
-    {
-        GL.Uniform1(GL.GetUniformLocation(Handle, name), value);
-    }
-
-    public void Dispose() => GL.DeleteProgram(Handle);
 }
-    /*
-    public void SetInt(string name, int value)
-    {
-        int loc = GL.GetUniformLocation(Handle, name);
-        GL.Uniform1(loc, value);
-    }
-    public void SetMatrix4(string name, OpenTK.Mathematics.Matrix4 value)
-    {
-        int loc = OpenTK.Graphics.OpenGL4.GL.GetUniformLocation(Handle, name);
-        OpenTK.Graphics.OpenGL4.GL.UniformMatrix4(loc, false, ref value);
-    }
-    public void SetFloat(string name, float value)
-    {
-        int loc = OpenTK.Graphics.OpenGL4.GL.GetUniformLocation(Handle, name);
-        OpenTK.Graphics.OpenGL4.GL.Uniform1(loc, value);
-    }
-
-    public void SetVector3(string name, OpenTK.Mathematics.Vector3 value)
-    {
-        int loc = OpenTK.Graphics.OpenGL4.GL.GetUniformLocation(Handle, name);
-        OpenTK.Graphics.OpenGL4.GL.Uniform3(loc, value);
-    }
-    public void Use() => GL.UseProgram(Handle);
-
-    public void Dispose() => GL.DeleteProgram(Handle);
-   */ 
-

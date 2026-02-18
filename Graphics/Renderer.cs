@@ -1,7 +1,7 @@
 using OpenTK.Mathematics;
 
 public sealed class Renderer
-{
+{/*
     public Matrix4 View = Matrix4.Identity;
     public Matrix4 Projection = Matrix4.Identity;
     
@@ -14,5 +14,5 @@ public sealed class Renderer
         obj.Material.Shader.SetMatrix4("uMVP",mvp);
 
         obj.Mesh.Draw();
-    }
+    }*/
 }
